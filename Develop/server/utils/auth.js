@@ -1,12 +1,11 @@
 const jwt = require('jsonwebtoken');
-
 const secret = 'mysecretsshhhhh';
 const expiration = '2h';
 
 module.exports = {
-  authMiddleware: function({ req }) {
+  authMiddleware: function (req, res, next) {
     // allows token to be sent via req.body, req.query, or headers
-    let token = req.body.token || req.query.token || req.headers.authorization;
+    let token = req.query.token || req.headers.authorization;
 
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
@@ -17,7 +16,7 @@ module.exports = {
     }
 
     if (!token) {
-      return req;
+      return res.status(400).json({ message: 'You have no token!' });
     }
 
     try {
