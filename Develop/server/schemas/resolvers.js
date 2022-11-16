@@ -1,9 +1,3 @@
-const resolvers = {
-    Query: {
-      helloWorld: () => {
-        return 'Hello world!';
-      }
-    }
-  };
-  
-  module.exports = resolvers;
+const { User, Book } = require("../models");
+const { AuthenticationError } = require("apollo-server-express");
+const { signToken } = require("../utils/auth");
